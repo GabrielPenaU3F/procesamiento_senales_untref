@@ -10,7 +10,7 @@ def construir_kernel_media_movil(ancho_ventana):
     return kernel
 
 
-kernel_ancho_5 = construir_kernel_media_movil(3)
+kernel_ancho_3 = construir_kernel_media_movil(3)
 x_t = [1, 3, 1, 2, 2, 1]
 
-print(sg.convolve(x_t, kernel_ancho_5))
+print(sg.convolve(x_t, kernel_ancho_3))
