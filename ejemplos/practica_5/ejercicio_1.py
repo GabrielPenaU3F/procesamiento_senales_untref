@@ -6,7 +6,7 @@ from ejemplos.practica_2.ejercicio_3 import generar_senoide
 
 
 def calcular_transformada(x_t):
-    X_w = scipy.fft(x_t)
+    X_w = scipy.fft.fft(x_t)
     return X_w
 
 duracion = 2
