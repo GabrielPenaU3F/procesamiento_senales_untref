@@ -1,17 +1,12 @@
 import numpy as np
-import scipy
 from matplotlib import pyplot as plt
 
-from ejemplos.practica_2.ejercicio_3 import generar_senoide
-
-
-def calcular_transformada(x_t):
-    X_w = scipy.fft.fft(x_t)
-    return X_w
+from ejemplos.practica_2.funciones import generar_senoide
+from ejemplos.practica_5.funciones import calcular_transformada
 
 duracion = 2
 fs = 1000
-t, x_t = generar_senoide(0, duracion, 250, fs)
+t, x_t = generar_senoide(0, duracion, 2, 250, 0, fs)
 
 X_w = calcular_transformada(x_t)
 
