@@ -19,5 +19,5 @@ z3 = np.concatenate((silencio, w), axis=None) + u + v
 f, t, spect = sig.spectrogram(z3, fs)
 plt.pcolormesh(t, f, spect)
 plt.ylabel('Frequency [Hz]')
-plt.xlabel('Time [sec]')
+plt.xlabel('Time [seg]')
 plt.show()
