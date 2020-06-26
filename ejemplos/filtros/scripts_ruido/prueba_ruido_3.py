@@ -1,6 +1,6 @@
 import numpy as np
 
-from ejemplos.filtros.generador_ruido import generar_ruido_sal_y_pimienta
+from ejemplos.filtros.ruido.generador_ruido import generar_ruido_sal_y_pimienta
 from ejemplos.practica_2.funciones import generar_senoide
 from matplotlib import pyplot as plt
 
