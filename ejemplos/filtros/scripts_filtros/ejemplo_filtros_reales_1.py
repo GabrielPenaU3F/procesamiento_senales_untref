@@ -25,12 +25,18 @@ wstop = 950 / (fs/2)
 # Las frecuencias angulares fpass y fstop se tienen que normalizar al intervalo (0, 1), donde 1 corresponde
 # a la frecuencia de Nyquist (fs / 2). Para eso dividimos por (fs/2)
 
+# wpass: la frecuencia de paso normalizada
+# wstop: la frecuencia de corte normalizada
+# gpass: máxima atenuación tolerable en la banda de paso (en dB)
+# gstop: mínima atenuación tolerable en la banda de rechazo (en dB)
+# rp: amplitud de ripple tolerable en las transiciones (en dB)
 orden, wn = sg.cheb1ord(wp=wpass, ws=wstop, gpass=3, gstop=40)
 [coef_numerador_b, coef_denominador_a] = sg.cheby1(N=orden, rp=3, Wn=wn, btype='lowpass', output='ba')
 
 ''' Diagrama de Bode '''
 
-# Le pasamos la frecuencia de muestreo para que el resultado lo ponga en escala de 0 a fs/2
+# Le pasamos la frecuencia de muestreo para que el resultado lo ponga en escala de 0 a fs/2. Si no se la pasamos,
+# lo devolvería normalizado y tenemos que arreglarlo luego
 f, h = sg.freqz(coef_numerador_b, coef_denominador_a, fs=fs)
 
 fig, ax1 = plt.subplots()
@@ -49,9 +55,8 @@ ax2.set_ylabel('Fase (rad)', color='g')
 senal_filtrada_ideal = filtrar_pasa_bajos_ideal(senal_ruidosa, fs, 800)
 espectro_filtrado_ideal = np.abs(np.fft.fft(senal_filtrada_ideal))[0:int(N/2)]
 
-senal_filtrada_butterworth = sg.lfilter(coef_numerador_b, coef_denominador_a, senal_ruidosa)
-espectro_filtrado_butterworth = np.abs(np.fft.fft(senal_filtrada_butterworth))[0:int(N/2)]
-
+senal_filtrada_cheby1 = sg.lfilter(coef_numerador_b, coef_denominador_a, senal_ruidosa)
+espectro_filtrado_cheby1 = np.abs(np.fft.fft(senal_filtrada_cheby1))[0:int(N/2)]
 
 f = np.linspace(0, fs/2, len(espectro_ruidoso), endpoint=None)
 
@@ -69,11 +74,10 @@ axes[1][0].set_xlabel("t (seg)")
 axes[1][1].plot(f, espectro_filtrado_ideal)
 axes[1][1].set_xlabel("f (Hz)")
 
-axes[2][0].plot(t, senal_filtrada_butterworth)
+axes[2][0].plot(t, senal_filtrada_cheby1)
 axes[2][0].set_xlabel("t (seg)")
 
-axes[2][1].plot(f, espectro_filtrado_butterworth)
+axes[2][1].plot(f, espectro_filtrado_cheby1)
 axes[2][1].set_xlabel("f (Hz)")
-
 
 plt.show()
