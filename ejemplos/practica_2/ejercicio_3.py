@@ -2,8 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # SCRIPT
-
-'''
+from ejemplos.practica_2.funciones import generar_senoide, calcular_energia
 
 fs_10 = 10
 fs_100 = 100
@@ -31,6 +30,5 @@ print('Energia (1000 muestras por segundo): ' + str(e_1000))
 
 plt.show()
 
-'''
 
 
