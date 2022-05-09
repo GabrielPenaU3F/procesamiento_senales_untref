@@ -1,9 +1,8 @@
-import scipy
 import numpy as np
 
 
 def calcular_transformada(x_t):
-    X_w = scipy.fft.fft(x_t)
+    X_w = np.fft.fft(x_t, norm='forward')
     return X_w
 
 def poner_a_cero_valores_nulos(X_w, tol):
